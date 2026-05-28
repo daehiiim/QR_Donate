@@ -35,6 +35,8 @@ export function renderDonationPageHtml(
   const holderLabel = config.accountHolder
     ? `<span>${escapeHtml(config.accountHolder)}</span>`
     : "";
+  const accountDisplay = escapeAttribute(config.accountDisplay);
+  const accountNumberContent = renderAccountNumberContent(config.accountDisplay);
 
   return `<!doctype html>
 <html lang="ko">
@@ -152,10 +154,22 @@ export function renderDonationPageHtml(
       color: var(--muted);
     }
     .accountNumber {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
       font-size: 26px;
       line-height: 1.3;
       font-weight: 800;
       word-break: break-all;
+    }
+    .accountNumberText {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+    .accountNumberGroup,
+    .accountNumberSeparator {
+      display: inline-block;
     }
     .accountNumber a,
     a[x-apple-data-detectors] {
@@ -253,7 +267,7 @@ export function renderDonationPageHtml(
           <span>${escapeHtml(config.bankName)}</span>
           ${holderLabel}
         </div>
-        <div class="accountNumber" id="accountNumber">${escapeHtml(config.accountDisplay)}</div>
+        <div class="accountNumber" id="accountNumber" role="text" aria-label="${accountDisplay}" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
       </div>
       <div class="actions">
         <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
@@ -300,7 +314,7 @@ export function renderDonationPageHtml(
     };
 
     copyButton?.addEventListener("click", async () => {
-      const text = accountNumber?.textContent?.trim() || "";
+      const text = accountNumber?.dataset.copyValue?.trim() || accountNumber?.textContent?.trim() || "";
       if (!text) return;
       const copied = await copyAccountText(text);
       copyButton.textContent = copied ? "복사됨" : "복사 실패";
@@ -309,6 +323,20 @@ export function renderDonationPageHtml(
   </script>
 </body>
 </html>`;
+}
+
+/** 모바일 자동 전화번호 감지를 피하도록 계좌번호를 표시 단위별 span으로 나눈다. */
+function renderAccountNumberContent(value: string): string {
+  const parts = value.split(/(\D+)/).filter(Boolean);
+  const content = parts.map((part) => {
+    if (/^\D+$/.test(part)) {
+      return `<span class="accountNumberSeparator">&#8204;${escapeHtml(part)}&#8204;</span>`;
+    }
+
+    return `<span class="accountNumberGroup">${escapeHtml(part)}</span>`;
+  }).join("");
+
+  return `<span class="accountNumberText" aria-hidden="true">${content}</span>`;
 }
 
 /** 외부 사이트에 iframe 방식으로 붙일 수 있는 짧은 스크립트를 만든다. */
