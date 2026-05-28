@@ -156,10 +156,10 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   assert.match(html, /작은 응원이 개발자에게는 큰 힘이 됩니다!!/);
   assert.match(html, /\.description \{[\s\S]*font-weight: 400;/);
   assert.match(html, /1000-2000-3000/);
-  assert.match(html, /role="img" aria-label="계좌번호"/);
+  assert.match(html, /role="text" aria-label="1000-2000-3000"/);
   assert.match(html, /data-copy-value="1000-2000-3000"/);
-  assert.match(html, /accountNumberImage/);
-  assert.match(html, /data:image\/svg\+xml,/);
+  assert.doesNotMatch(html, /accountNumberImage/);
+  assert.doesNotMatch(html, /data:image\/svg\+xml,/);
   assert.doesNotMatch(html, /accountNumberGroup/);
   assert.doesNotMatch(html, /accountNumberSeparator/);
   assert.doesNotMatch(html, /&#8204;-&#8204;/);
@@ -189,7 +189,8 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   );
   assert.match(html, /\.accountNumber a,[\s\S]*a\[x-apple-data-detectors\]/);
   assert.match(html, /text-decoration: none !important;/);
-  assert.match(html, /accountNumber\?\.dataset\.copyValue\?\.trim\(\) \|\| ""/);
+  assert.match(html, /accountNumber\?\.dataset\.copyValue\?\.trim\(\) \|\| accountNumber\?\.textContent\?\.trim\(\) \|\| ""/);
+  assert.match(html, /body\[data-device="mobile"\] \.actions \.desktopOnly \{[\s\S]*display: inline-flex;/);
   assert.match(
     html,
     /QR 인식이 안되면 아래 계좌 번호로 부탁드립니다!/,

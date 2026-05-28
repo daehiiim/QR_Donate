@@ -36,7 +36,7 @@ export function renderDonationPageHtml(
     ? `<span>${escapeHtml(config.accountHolder)}</span>`
     : "";
   const accountDisplay = escapeAttribute(config.accountDisplay);
-  const accountNumberContent = renderAccountNumberImage(config.accountDisplay);
+  const accountNumberContent = escapeHtml(config.accountDisplay);
 
   return `<!doctype html>
 <html lang="ko">
@@ -154,19 +154,15 @@ export function renderDonationPageHtml(
       color: var(--muted);
     }
     .accountNumber {
-      display: flex;
-      align-items: center;
+      display: block;
+      color: var(--text);
       font-size: 26px;
       line-height: 1.3;
       font-weight: 800;
+      text-decoration: none;
+      user-select: text;
+      -webkit-user-select: text;
       word-break: break-all;
-    }
-    .accountNumberImage {
-      display: block;
-      width: min(100%, 238px);
-      height: auto;
-      pointer-events: none;
-      user-select: none;
     }
     .accountNumber a,
     a[x-apple-data-detectors] {
@@ -208,7 +204,7 @@ export function renderDonationPageHtml(
       display: none;
     }
     body[data-device="mobile"] .actions .desktopOnly {
-      display: none;
+      display: inline-flex;
     }
     body[data-device="mobile"] .actions .mobileOnly {
       display: inline-flex;
@@ -264,7 +260,7 @@ export function renderDonationPageHtml(
           <span>${escapeHtml(config.bankName)}</span>
           ${holderLabel}
         </div>
-        <div class="accountNumber" id="accountNumber" role="img" aria-label="계좌번호" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
+        <div class="accountNumber" id="accountNumber" role="text" aria-label="${accountDisplay}" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
       </div>
       <div class="actions">
         <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
@@ -311,7 +307,7 @@ export function renderDonationPageHtml(
     };
 
     copyButton?.addEventListener("click", async () => {
-      const text = accountNumber?.dataset.copyValue?.trim() || "";
+      const text = accountNumber?.dataset.copyValue?.trim() || accountNumber?.textContent?.trim() || "";
       if (!text) return;
       const copied = await copyAccountText(text);
       copyButton.textContent = copied ? "복사됨" : "복사 실패";
@@ -320,15 +316,6 @@ export function renderDonationPageHtml(
   </script>
 </body>
 </html>`;
-}
-
-/** iPhone 자동 전화번호 감지를 피하도록 계좌번호를 SVG 이미지로 그린다. */
-function renderAccountNumberImage(value: string): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="238" height="36" viewBox="0 0 238 36">
-  <text x="0" y="28" fill="#191f28" font-family="Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="26" font-weight="800">${escapeHtml(value)}</text>
-</svg>`;
-
-  return `<img class="accountNumberImage" src="data:image/svg+xml,${encodeURIComponent(svg)}" alt="" aria-hidden="true" />`;
 }
 
 /** 외부 사이트에 iframe 방식으로 붙일 수 있는 짧은 스크립트를 만든다. */
