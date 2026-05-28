@@ -12,6 +12,7 @@ export function renderDonationPageHtml(
   config: QrDonateConfig,
   options: DonationPageOptions,
 ): string {
+  const pageQrSize = Math.min(config.qrSize, 292);
   const transferUrl =
     resolveTossTransferUrl(config, {
       amount: options.amount ?? config.defaultAmount,
@@ -64,13 +65,13 @@ export function renderDonationPageHtml(
       letter-spacing: 0;
     }
     main {
-      width: min(100%, 596px);
-      padding: ${options.embedded ? "16px" : "28px"};
+      width: min(100%, 536px);
+      padding: ${options.embedded ? "14px" : "24px"};
     }
     .donatePanel {
       display: grid;
-      gap: 24px;
-      padding: 40px;
+      gap: 20px;
+      padding: 32px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--surface);
@@ -78,37 +79,39 @@ export function renderDonationPageHtml(
     }
     .header {
       display: grid;
-      gap: 20px;
+      gap: 16px;
       text-align: center;
     }
     .title {
       margin: 0;
-      font-size: 36px;
+      font-size: 30px;
       line-height: 1.25;
       font-weight: 800;
     }
     .thanksText {
       margin: 0;
       color: var(--text);
-      font-size: 21px;
+      font-size: 18px;
       line-height: 1.35;
       font-weight: 800;
     }
     .thanksRow {
       display: grid;
       place-items: center;
-      min-height: 162px;
+      min-height: 132px;
     }
     .mascotImage {
       display: block;
       width: auto;
-      max-width: 100%;
+      max-width: min(100%, 240px);
+      max-height: 132px;
       height: auto;
+      object-fit: contain;
     }
     .description {
       margin: 0;
       color: var(--muted);
-      font-size: 19px;
+      font-size: 17px;
       line-height: 1.55;
       font-weight: 400;
     }
@@ -116,9 +119,9 @@ export function renderDonationPageHtml(
       display: grid;
       place-items: center;
       justify-self: center;
-      width: min(100%, 370px);
+      width: min(100%, 326px);
       min-height: 0;
-      padding: 8px;
+      padding: 7px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #ffffff;
@@ -129,17 +132,17 @@ export function renderDonationPageHtml(
       justify-self: center;
       align-self: center;
       margin: auto;
-      width: min(100%, ${config.qrSize}px);
+      width: min(100%, ${pageQrSize}px);
       height: auto;
     }
     .accountBox {
       display: grid;
       gap: 8px;
-      padding: 18px 24px;
+      padding: 14px 20px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #f9fafb;
-      font-size: 20px;
+      font-size: 18px;
     }
     .accountMeta {
       display: flex;
@@ -148,7 +151,7 @@ export function renderDonationPageHtml(
       color: var(--muted);
     }
     .accountNumber {
-      font-size: 30px;
+      font-size: 26px;
       line-height: 1.3;
       font-weight: 800;
       word-break: break-all;
@@ -160,7 +163,7 @@ export function renderDonationPageHtml(
     }
     button,
     a.button {
-      height: 68px;
+      height: 58px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -169,7 +172,7 @@ export function renderDonationPageHtml(
       background: #ffffff;
       color: var(--text);
       font: inherit;
-      font-size: 22px;
+      font-size: 19px;
       font-weight: 800;
       text-decoration: none;
       cursor: pointer;
@@ -195,29 +198,32 @@ export function renderDonationPageHtml(
       margin: 0;
       text-align: center;
       color: var(--muted);
-      font-size: 19px;
+      font-size: 17px;
       line-height: 1.55;
     }
     @media (max-width: 640px) {
       main { padding: 12px; }
       .donatePanel {
-        gap: 18px;
-        padding: 24px 18px;
+        gap: 16px;
+        padding: 20px 16px;
       }
-      .title { font-size: 28px; }
+      .title { font-size: 24px; }
       .thanksRow {
-        min-height: 136px;
+        min-height: 116px;
       }
-      .mascotImage { max-width: 100%; }
-      .thanksText { font-size: 18px; }
+      .mascotImage {
+        max-width: min(100%, 214px);
+        max-height: 116px;
+      }
+      .thanksText { font-size: 16px; }
       .description { font-size: 16px; }
       .qrFrame { padding: 6px; }
       .accountBox { padding: 16px; font-size: 16px; }
-      .accountNumber { font-size: 24px; }
+      .accountNumber { font-size: 22px; }
       button,
       a.button {
-        height: 54px;
-        font-size: 18px;
+        height: 50px;
+        font-size: 17px;
       }
     }
   </style>

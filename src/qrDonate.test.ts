@@ -139,6 +139,7 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
       "QR 인식이 안되면 아래 계좌 번호로 부탁드립니다!",
     QRDONATE_QR_IMAGE_URL: "/assets/toss-qr-5000.webp",
     QRDONATE_MASCOT_IMAGE_URL: "/assets/coffee-mascot.png",
+    QRDONATE_QR_SIZE: "340",
     QRDONATE_QR_LINK:
       "supertoss://send?amount=5000&bank=%ED%86%A0%EC%8A%A4%EB%B1%85%ED%81%AC&accountNo=100020003000&origin=qr",
     QRDONATE_TOSS_URL_TEMPLATE:
@@ -164,9 +165,11 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   assert.match(html, /mascotImage/);
   assert.match(html, /\.thanksRow \{[\s\S]*place-items: center;/);
   assert.match(html, /\.mascotImage \{[\s\S]*width: auto;/);
+  assert.match(html, /\.mascotImage \{[\s\S]*max-height: 132px;/);
   assert.match(html, /\.qrFrame \{[\s\S]*justify-self: center;/);
-  assert.match(html, /\.qrFrame \{[\s\S]*width: min\(100%, 370px\);/);
-  assert.match(html, /\.qrFrame \{[\s\S]*padding: 8px;/);
+  assert.match(html, /\.qrFrame \{[\s\S]*width: min\(100%, 326px\);/);
+  assert.match(html, /\.qrFrame \{[\s\S]*padding: 7px;/);
+  assert.match(html, /\.qrImage \{[\s\S]*width: min\(100%, 292px\);/);
   assert.match(html, /\/assets\/coffee-mascot\.png/);
   assert.equal(publicConfig.thanksText, "");
   assert.equal(publicConfig.mascotImageUrl, "/assets/coffee-mascot.png");
