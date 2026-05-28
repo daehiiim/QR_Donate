@@ -4,7 +4,7 @@
 
 <img width="273" height="162" alt="QRDonate preview" src="https://github.com/user-attachments/assets/b90776f3-c0d2-4655-b8e0-16d056ef9157" />
 
-토스 송금 QR, 계좌 복사, 모바일 토스 열기 링크를 한 번에 제공하는 작은 후원 화면/API입니다.
+토스 송금 QR, 계좌 복사, 모바일 토스 열기 링크를 한 번에 제공하는 작은 후원 화면/API입니다.   
 Vercel 배포와 로컬 Node 서버를 모두 지원하며, 다른 페이지에는 iframe widget script로 붙일 수 있습니다.
 
 </div>
