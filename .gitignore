@@ -1,0 +1,42 @@
+<!-- guide start -->
+# daehiim gitignore (for agents: 이 부분은 절대 수정하지 말 것)
+
+<개인정보>
+00*/
+private/
+
+<하네스>
+handoff.md
+log.md
+ERROR.md
+error_patterns.md
+error_example.md
+AGENTS.md
+SUBAGENTS.md
+DESIGN.md
+UIKIT.md
+IGNORE.md
+.agents
+.codex
+
+<환경변수>
+.env
+service.env
+
+<기타>
+.venv/
+.runtime/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.idea
+
+<비필수>
+local_datasets/
+<!-- guide end-->
+
+node_modules/
+dist/
+.vercel/
+*.log

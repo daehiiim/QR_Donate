@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/qr-donate/page"
+    },
+    {
+      "source": "/donate",
+      "destination": "/api/qr-donate/page"
+    },
+    {
+      "source": "/api/qr-donate/widget.js",
+      "destination": "/api/qr-donate/widget"
+    }
+  ]
+}
