@@ -78,14 +78,6 @@ QRDONATE_QR_LINK=supertoss://send?amount=5000&bank=...&accountNo=...&origin=qr
 QRDONATE_TOSS_URL_TEMPLATE=supertoss://send?amount={amount}&bank={bank}&accountNo={account}&origin=qr
 ```
 
-`coffee-hanzan` 방식과 호환해야 하면 세 값을 함께 설정합니다.
-
-```env
-QRDONATE_TOSS_URL_A=supertoss://send?bank=
-QRDONATE_TOSS_URL_B=&accountNo=
-QRDONATE_TOSS_URL_C=&amount=
-```
-
 ## 붙이는 방법
 
 배포된 QRDonate를 다른 페이지에 붙일 때는 widget script를 추가합니다.
@@ -98,40 +90,4 @@ QRDONATE_TOSS_URL_C=&amount=
 
 ```html
 <script src="http://localhost:8787/api/qr-donate/widget.js"></script>
-```
-
-## Vercel 배포
-
-GitHub repo는 `https://github.com/daehiiim/QR_Donate.git`입니다. Vercel에서 이 repo를 import한 뒤 환경변수를 등록합니다.
-
-Vercel에서는 `/`, `/donate`, `/api/qr-donate/widget.js`가 `vercel.json` rewrite를 통해 `api/qr-donate/*` 함수로 연결됩니다. 배포 이미지는 `public/assets` 폴더에서 서빙됩니다.
-
-필수 env:
-
-```env
-QRDONATE_BANK_NAME=토스뱅크
-QRDONATE_ACCOUNT_NUMBER=1000-2000-3000
-```
-
-권장 env:
-
-```env
-QRDONATE_ACCOUNT_HOLDER=홍길동
-QRDONATE_QR_IMAGE_URL=/assets/toss-qr-5000.webp
-QRDONATE_MASCOT_IMAGE_URL=/assets/coffee-mascot.png
-QRDONATE_DEFAULT_AMOUNT=5000
-```
-
-raNovel Electron 빌드에서 이 API를 바라보게 하려면 아래 값을 사용합니다.
-
-```powershell
-$env:NEXT_PUBLIC_QRDONATE_API_BASE_URL="https://<your-qrdonate-project>.vercel.app"
-```
-
-## 검증
-
-```powershell
-npm test
-npm run build
-npm run typecheck:vercel
 ```
