@@ -265,6 +265,10 @@ export function renderDonationPageHtml(
       <div class="qrFrame" aria-label="토스 송금 QR 코드">
         ${qrContent}
       </div>
+      <div class="actions">
+        <a class="button primary mobileOnly" id="openToss" href="${escapeAttribute(transferUrl)}">토스 열기</a>
+        <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
+      </div>
       <p class="fallbackNotice">${escapeHtml(config.fallbackNotice)}</p>
       <div class="accountBox">
         <div class="accountMeta">
@@ -272,10 +276,6 @@ export function renderDonationPageHtml(
           ${holderLabel}
         </div>
         <div class="accountNumber" id="accountNumber" role="text" aria-label="${accountDisplay}" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
-      </div>
-      <div class="actions">
-        <a class="button primary mobileOnly" id="openToss" href="${escapeAttribute(transferUrl)}">토스 열기</a>
-        <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
       </div>
     </section>
   </main>

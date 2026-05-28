@@ -196,6 +196,9 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   assert.match(html, /body\[data-device="mobile"\] \.accountBox \{[\s\S]*order: 4;/);
   assert.match(html, /@media \(max-width: 640px\) \{[\s\S]*\.actions \{ order: 2; \}[\s\S]*\.fallbackNotice \{ order: 3; \}[\s\S]*\.accountBox \{ order: 4; padding: 16px; font-size: 16px; \}/);
   assert.ok(html.indexOf('id="openToss"') < html.indexOf('id="copyAccount"'));
+  assert.ok(html.indexOf('class="qrFrame"') < html.indexOf('id="copyAccount"'));
+  assert.ok(html.indexOf('id="copyAccount"') < html.indexOf('class="fallbackNotice"'));
+  assert.ok(html.indexOf('class="fallbackNotice"') < html.indexOf('class="accountBox"'));
   assert.match(
     html,
     /QR 인식이 안되면 아래 계좌 번호로 부탁드립니다!/,
