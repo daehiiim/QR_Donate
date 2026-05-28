@@ -41,6 +41,7 @@ export function renderDonationPageHtml(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
   <title>${escapeHtml(config.title)}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <style>
@@ -155,6 +156,13 @@ export function renderDonationPageHtml(
       line-height: 1.3;
       font-weight: 800;
       word-break: break-all;
+    }
+    .accountNumber a,
+    a[x-apple-data-detectors] {
+      color: var(--text) !important;
+      font: inherit !important;
+      text-decoration: none !important;
+      -webkit-text-fill-color: var(--text);
     }
     .actions {
       display: grid;

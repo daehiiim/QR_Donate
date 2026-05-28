@@ -178,6 +178,12 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   assert.match(html, /font-family: Pretendard/);
   assert.match(
     html,
+    /<meta name="format-detection" content="telephone=no, date=no, email=no, address=no" \/>/,
+  );
+  assert.match(html, /\.accountNumber a,[\s\S]*a\[x-apple-data-detectors\]/);
+  assert.match(html, /text-decoration: none !important;/);
+  assert.match(
+    html,
     /QR 인식이 안되면 아래 계좌 번호로 부탁드립니다!/,
   );
   assert.doesNotMatch(html, /송금 금액:/);
