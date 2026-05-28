@@ -1,12 +1,13 @@
 <div align="center">
+  
 # QRDonate
 
 <img width="273" height="162" alt="image" src="https://github.com/user-attachments/assets/b90776f3-c0d2-4655-b8e0-16d056ef9157" />
-</div>
 
-토스 QR 이미지와 계좌 정보를 넣으면 바로 쓸 수 있는 작은 후원 화면/API입니다.
+토스 QR 이미지와 계좌 정보를 넣으면 바로 쓸 수 있는 작은 후원 화면/API입니다.   
 Vercel 배포에서는 `/api/qr-donate/*` 함수와 `public/assets/*` 정적 파일로 동작합니다.
 
+</div>
 ## 사용법
 
 ```powershell
