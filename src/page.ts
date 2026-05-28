@@ -209,6 +209,15 @@ export function renderDonationPageHtml(
     body[data-device="mobile"] .actions .mobileOnly {
       display: inline-flex;
     }
+    body[data-device="mobile"] .actions {
+      order: 2;
+    }
+    body[data-device="mobile"] .fallbackNotice {
+      order: 3;
+    }
+    body[data-device="mobile"] .accountBox {
+      order: 4;
+    }
     .fallbackNotice {
       margin: 0;
       text-align: center;
@@ -233,7 +242,9 @@ export function renderDonationPageHtml(
       .thanksText { font-size: 16px; }
       .description { font-size: 16px; }
       .qrFrame { padding: 6px; }
-      .accountBox { padding: 16px; font-size: 16px; }
+      .actions { order: 2; }
+      .fallbackNotice { order: 3; }
+      .accountBox { order: 4; padding: 16px; font-size: 16px; }
       .accountNumber { font-size: 22px; }
       button,
       a.button {
@@ -263,8 +274,8 @@ export function renderDonationPageHtml(
         <div class="accountNumber" id="accountNumber" role="text" aria-label="${accountDisplay}" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
       </div>
       <div class="actions">
-        <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
         <a class="button primary mobileOnly" id="openToss" href="${escapeAttribute(transferUrl)}">토스 열기</a>
+        <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>
       </div>
     </section>
   </main>
