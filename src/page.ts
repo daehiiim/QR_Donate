@@ -264,7 +264,7 @@ export function renderDonationPageHtml(
           <span>${escapeHtml(config.bankName)}</span>
           ${holderLabel}
         </div>
-        <div class="accountNumber" id="accountNumber" role="text" aria-label="${accountDisplay}" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
+        <div class="accountNumber" id="accountNumber" role="img" aria-label="계좌번호" data-copy-value="${accountDisplay}">${accountNumberContent}</div>
       </div>
       <div class="actions">
         <button class="desktopOnly" type="button" id="copyAccount">계좌 복사</button>

@@ -156,6 +156,7 @@ test("QR SVG와 후원 HTML 화면을 렌더링한다", async () => {
   assert.match(html, /작은 응원이 개발자에게는 큰 힘이 됩니다!!/);
   assert.match(html, /\.description \{[\s\S]*font-weight: 400;/);
   assert.match(html, /1000-2000-3000/);
+  assert.match(html, /role="img" aria-label="계좌번호"/);
   assert.match(html, /data-copy-value="1000-2000-3000"/);
   assert.match(html, /accountNumberImage/);
   assert.match(html, /data:image\/svg\+xml,/);
