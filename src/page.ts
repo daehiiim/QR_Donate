@@ -36,14 +36,14 @@ export function renderDonationPageHtml(
     ? `<span>${escapeHtml(config.accountHolder)}</span>`
     : "";
   const accountDisplay = escapeAttribute(config.accountDisplay);
-  const accountNumberContent = renderAccountNumberContent(config.accountDisplay);
+  const accountNumberContent = renderAccountNumberImage(config.accountDisplay);
 
   return `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
+  <meta name="format-detection" content="telephone=no" />
   <title>${escapeHtml(config.title)}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <style>
@@ -155,21 +155,18 @@ export function renderDonationPageHtml(
     }
     .accountNumber {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
+      align-items: center;
       font-size: 26px;
       line-height: 1.3;
       font-weight: 800;
       word-break: break-all;
     }
-    .accountNumberText {
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-    }
-    .accountNumberGroup,
-    .accountNumberSeparator {
-      display: inline-block;
+    .accountNumberImage {
+      display: block;
+      width: min(100%, 238px);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
     }
     .accountNumber a,
     a[x-apple-data-detectors] {
@@ -314,7 +311,7 @@ export function renderDonationPageHtml(
     };
 
     copyButton?.addEventListener("click", async () => {
-      const text = accountNumber?.dataset.copyValue?.trim() || accountNumber?.textContent?.trim() || "";
+      const text = accountNumber?.dataset.copyValue?.trim() || "";
       if (!text) return;
       const copied = await copyAccountText(text);
       copyButton.textContent = copied ? "복사됨" : "복사 실패";
@@ -325,18 +322,13 @@ export function renderDonationPageHtml(
 </html>`;
 }
 
-/** 모바일 자동 전화번호 감지를 피하도록 계좌번호를 표시 단위별 span으로 나눈다. */
-function renderAccountNumberContent(value: string): string {
-  const parts = value.split(/(\D+)/).filter(Boolean);
-  const content = parts.map((part) => {
-    if (/^\D+$/.test(part)) {
-      return `<span class="accountNumberSeparator">&#8204;${escapeHtml(part)}&#8204;</span>`;
-    }
+/** iPhone 자동 전화번호 감지를 피하도록 계좌번호를 SVG 이미지로 그린다. */
+function renderAccountNumberImage(value: string): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="238" height="36" viewBox="0 0 238 36">
+  <text x="0" y="28" fill="#191f28" font-family="Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="26" font-weight="800">${escapeHtml(value)}</text>
+</svg>`;
 
-    return `<span class="accountNumberGroup">${escapeHtml(part)}</span>`;
-  }).join("");
-
-  return `<span class="accountNumberText" aria-hidden="true">${content}</span>`;
+  return `<img class="accountNumberImage" src="data:image/svg+xml,${encodeURIComponent(svg)}" alt="" aria-hidden="true" />`;
 }
 
 /** 외부 사이트에 iframe 방식으로 붙일 수 있는 짧은 스크립트를 만든다. */
